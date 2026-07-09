@@ -1045,16 +1045,15 @@ G4float MuonElectronGenerator::ChooseEnergy(G4float thet)
 	  if ( enex < 0.01 )
 	    {
 	      G4cout << G4endl << "mu low energy = "
-		     <<  enex*1000. << " MeV" << G4endl; 
+		     <<  enex*1000. << " MeV";
 	    }
-	G4cout << "muon in range " << enex << " GeV" << G4endl;
 	return enex;
 	}
     }
 
   G4cout << G4endl << "mu high energy = "
 	 <<  ELog[NLog-1] << " GeV"
-	 << j << ": " << thet << " " << x << G4endl;
+	 << j << ": " << thet << " " << x;
   //  G4cout <<  jj << ": " << ELog[jj-1] << G4endl;
   //  G4cout <<  ENprev << " < " << ENnext << G4endl;
 

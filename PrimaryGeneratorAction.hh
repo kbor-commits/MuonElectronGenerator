@@ -1,15 +1,10 @@
 #ifndef PrimaryGeneratorAction_h
 #define PrimaryGeneratorAction_h 1
 
-// my headers
-#include "MuonElectronGenerator.hh"
-#include "DetectorConstruction.hh"
-#include "container.h"
-// GEANT4 headers
 #include "G4VUserPrimaryGeneratorAction.hh"
+#include "MuonElectronGenerator.hh"
 #include "G4ParticleTable.hh"
-#include "G4ThreeVector.hh"
-#include "G4VPhysicalVolume.hh"
+#include "container.h"
 
 class G4ParticleGun;
 class G4Event;
@@ -19,17 +14,12 @@ public:
   PrimaryGeneratorAction(int MyPE,container *);
   ~PrimaryGeneratorAction();
 
+public:
   void GeneratePrimaries(G4Event* anEvent);
-  void SetDetectorConstruction(DetectorConstruction* detector){ DetCon = detector; } 
-    // Function to select a random point within a specified physical volume
-  G4ThreeVector SelectRandomPointInVolume(G4VPhysicalVolume* physVolume);
   
 private:
   G4ParticleGun *particleGun;
   MuonElectronGenerator *MEGen;
-  // Access the DetectorConstruction object
-  DetectorConstruction *DetCon;
-
   G4ParticleTable *particleTable;
   long PCount;
   container *_dramiel; 
