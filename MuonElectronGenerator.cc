@@ -58,6 +58,9 @@
 //   of random generator, but make the text more cryptic ...
 
 #include "MuonElectronGenerator.hh"
+#include <cmath>
+#include <cstring>
+#include <iomanip>
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
 
@@ -520,8 +523,9 @@ void MuonElectronGenerator::SetVariables(string recipe_selector)
   if(!ReadVariables("tnorm.list", "enorm.list")) {
         CalcVariables(); ReadVariables("tnorm.list", "enorm.list");
         }
-  if(recipe=="Reyna")SetReyna();
-  else if(recipe=="Jokisch") ReadJoks();
+  // Reyna angle table is needed by the Reyna, Haruo and Chris recipes (all use ChooseTheReyna())
+  SetReyna();
+  if(recipe=="Jokisch") ReadJoks();
   else if(recipe=="Haruo") ReadHaruo();	
   else if(recipe=="Chris") ReadChris();
   return;
@@ -732,7 +736,9 @@ void MuonElectronGenerator::CalcVariables()
     }
 
   of.open("enorm.list");
-  of.setf(ios::scientific);
+  // general (default) float format: the stream may still carry ios::fixed, and since C++11
+  // fixed|scientific means hexfloat, which ReadVariables() cannot parse back
+  of.unsetf(ios::floatfield);
   //  G4int ebin = 1;
   for(int i=0; i<N_ANGLES; i++)
     {
