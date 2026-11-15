@@ -77,12 +77,15 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   G4ThreeVector v(xp, yp, zp);
   //G4cout << "T: " << theta << ", phi1: " << phi1 << ", phi2: "<< phi2 << ", R: " << R*sqrt(2.*(1-cos(phi2-phi1))) << ", Z: " << Z1 << G4endl;
   
-  MEGen->GenerateMuon("Reyna",(G4float)theta);
+  // ChooseTheReyna() returns radians, GenerateMuon(recipe, theta) expects degrees
+  MEGen->GenerateMuon("Reyna",(G4float)(theta*180./PI));
   momentum = (G4double)(MEGen->GetEnergy())*GeV;
   
   particleGun->SetParticlePosition(G4ThreeVector( R*cos(phi1)-gamma*xp, R*sin(phi1)-gamma*yp, Z1-gamma*zp));
   particleGun->SetParticleMomentumDirection(v);
-  particleGun->SetParticleEnergy(momentum);
+  // generator returns momentum; the gun takes kinetic energy
+  G4double pmass = particle->GetPDGMass();
+  particleGun->SetParticleEnergy(sqrt(momentum*momentum + pmass*pmass) - pmass);
   //cout << particleGun->GetParticleEnergy() << endl;
 
   /*_dramiel->momentum_1 = momentum/MeV;
