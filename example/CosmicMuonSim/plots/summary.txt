@@ -1,0 +1,8 @@
+recipe             N   <p> GeV/c   median p  <theta> deg  mu+/mu-
+Reyna        1000000       6.254      2.518        33.65    1.221
+Blanpied     1000000       5.156      2.134        33.99    1.221
+Chris        1000000       3.846      1.456        33.65    1.221
+Jokisch      1000000      24.837     11.131        33.99    1.221
+Haruo        1000000       7.050      2.652        33.65    1.221
+
+Reyna: 999407/1000000 primaries reached the scoring plane
